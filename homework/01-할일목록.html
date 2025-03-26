@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            background-color: #888;
+        }
+
+        /* #div1{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        } */
+
+        #btn {
+            width: 50px;
+            height: 30px;
+            margin-left: 15%;
+            display: block
+        }
+
+        #txt1,
+        #dat1 {
+            height: 25px;
+            width: 70vw;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            /* margin-left: 10%; */
+        }
+
+        #div2 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #div3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px;
+        }
+
+        .btt {
+            margin: 7px;
+            padding: 5px 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+
+        .new {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            width: 70vw;
+            height: 35px;
+            margin-top: 10px;
+            margin-left: 15vw;
+            padding: 5px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .new>input {
+            margin-right: 10px;
+        }
+
+        .new>.sp1 {
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .new>button {
+            margin-left: 7px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <h1>할 일 목록</h1>
+        <div id="div2">
+            <input type="text" name="txt1" id="txt1" placeholder="할 일을 입력하세요">
+            <input type="date" name="dat1" id="dat1">
+        </div>
+        <button id="btn">등록</button>
+
+        <div id="div3">
+            <button id="allBtn" class="btt">전체</button>
+            <button id="actBtn" class="btt">활성</button>
+            <button id="finiBtn" class="btt">완료</button>
+        </div>
+    </div>
+    <script>
+        // 등록버튼 누를 시 할일과 날짜가 추가
+        // 추가되는 위치는 가장 밑
+        // 할일에 체크박스 추가하여 완료여부 확인 가능하게
+        // 추가된 할일에 수정버튼과 삭제버튼 추가
+        document.getElementById("btn").addEventListener("click", function () {
+            const list = document.getElementById("txt1").value;
+            const day = document.getElementById("dat1").value;
+            const ndiv = document.createElement("div")
+            ndiv.setAttribute("class", "new")
+
+            if (list === "" || day === "") {
+                alert("내용을 입력하세요")
+            } else {
+
+                const nip = document.createElement("input")
+                nip.setAttribute("type", "checkbox")
+                nip.addEventListener("click", function () {
+                    if (nip.checked) {
+                        nsp.style.textDecoration = "line-through"
+                    } else {
+                        nsp.style.textDecoration = "none"
+                    }
+                })
+
+                const nsp = document.createElement("span")
+                nsp.setAttribute("class", "sp1")
+
+
+                const modiBtn = document.createElement("button")
+                modiBtn.textContent = "수정"
+
+                modiBtn.addEventListener("click", function () {
+                    const iid = document.querySelector(".input1")
+                    const sp3 = document.querySelector(".sp1")
+                    const n2 = nip.nextElementSibling;
+
+                    if (n2 && n2.tagName === 'SPAN') {
+                        const rin = document.createElement("input");
+                        rin.value = n2.textContent.trim();
+                        rin.setAttribute("class", "input1")
+                        n2.replaceWith(rin);
+                        modiBtn.textContent = "저장"
+                    } else {
+                        const updatedText = iid.value.trim();
+                        const newsp = document.createElement("span")
+                        const iid1 = document.querySelector(".input1")
+                        newsp.setAttribute("class", "sp1")
+                        iid1.replaceWith(newsp);
+                        newsp.textContent = iid1.value;
+                        modiBtn.textContent = "수정";
+                    }
+                    console.log(n2);
+                })
+
+                localStorage.setItem(`${list}`, JSON.stringify(`${day}`));
+
+                const deBtn = document.createElement("button")
+                deBtn.textContent = "삭제"
+                deBtn.addEventListener("click", function () {
+                    ndiv.remove();
+                    localStorage.removeItem(`${list}`);
+                })
+
+                nsp.textContent = `${list} (${day})`
+
+                document.getElementById("div1").append(ndiv)
+                ndiv.prepend(nip)
+                ndiv.append(nsp)
+                ndiv.append(modiBtn)
+                ndiv.append(deBtn)
+            }
+        })
+
+        function checkDis(e) {
+            const allBox = document.querySelectorAll('input[type="checkbox"]');
+            allBox.forEach(function (checkbox) {
+                const chekPa = checkbox.parentElement;
+                if (e.target.id === "allBtn") {
+                    chekPa.style.display = "flex"
+                } else if (e.target.id === "actBtn") {
+                    if (checkbox.checked) {
+                        chekPa.style.display = "none"
+                    } else {
+                        chekPa.style.display = "flex"
+                    }
+                } else if (e.target.id === "finiBtn") {
+                    if (checkbox.checked) {
+                        chekPa.style.display = "flex"
+                    } else {
+                        chekPa.style.display = "none"
+                    }
+                }
+            })
+        }
+
+        document.getElementById("allBtn").addEventListener("click", checkDis);
+        document.getElementById("actBtn").addEventListener("click", checkDis);
+        document.getElementById("finiBtn").addEventListener("click", checkDis);
+    </script>
+</body>
+
+</html>
