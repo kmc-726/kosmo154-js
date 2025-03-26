@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 클래스 == 생성자 함수
+        // 다만 클래스가 생성자 함수보다 제약이 좀 있을 뿐...
+        class Class1 {
+            // 메서드를 통해 선언
+            setAge(age){
+                this.age = age;
+            }
+
+            getAge(){
+                return this.age
+            }
+        }
+
+        const obj1 = new Class1()
+        obj1.setAge(32);
+        console.log(obj1.getAge());
+        const obj2 = new Class1()
+        obj2.setAge(42);
+        console.dir(obj1);
+        console.dir(obj2);
+
+        //1
+        obj1.__proto__.setA = function(){
+            console.log("이것은 setA다")
+        }
+        console.dir(obj1);
+        console.dir(obj2);
+
+        //2
+        Class1.prototype.setB = function(){
+            console.log("이것은 SetB다");
+        }
+
+        obj1.setB();
+        obj2.setB();
+    </script>
+</body>
+</html>

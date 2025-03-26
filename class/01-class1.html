@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        const member1 = new Member();
+        // class 선언방식
+
+        class Member{
+            getName(){
+                return "내 이름은 김근영"
+            }
+        };
+        // const member1 = new Member();
+        // console.log(member1.getName());
+
+        // 클래스의 경우
+        // - 두가지 방식으로 선언이 가능하며 이 기능은 ㅏㅁ수와 동일하다.
+        // 1. class 선언방식
+        // 2. class 표현방식
+
+
+        // class 표현 방식
+
+        // const Member = class {
+        //     getName() {
+        //         return "내 이름은 김근영"
+        //     }
+        // }
+
+
+        console.log(member1.getName());
+    </script>
+</body>
+
+</html>

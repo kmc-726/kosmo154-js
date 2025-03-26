@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Class1{
+            setName1(name){
+                this.name = name;
+            }
+            getName1(){
+                return this.name;
+            }
+        }
+        // 1
+        const obj1 = new Class1;
+        obj1.setName1("kmc")
+        console.log(obj1.getName1());
+        console.dir(obj1);
+
+        // 2
+        const obj2 = new Class1();
+        obj2.name = "aaa";
+        console.log(obj2.getName1());
+
+        // 3
+        Class1.prototype.getCustName1 = function(){
+            return `name : ${this.name}`;
+        }
+        console.log(obj1.getCustName1());
+        console.log(obj2.getCustName1());
+
+        // 4
+        Class1.prototype.getCustomAge1 = function(){
+            return `age : ${this.age}`;
+        }
+        obj1.age = 32;
+        console.log(obj1.getCustomAge1());
+        Class1.prototype.age = 40;
+        console.log(obj2.getCustomAge1());
+    </script>
+</body>
+</html>
