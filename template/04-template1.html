@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="div1"></div>
+
+    <template id="temp1">
+        <style>
+            h1 {
+                color: blue;
+            }
+        </style>
+        <h1>hello</h1>
+        <p>안녕요 이건 템플링이요</p>
+    </template>
+
+    <script>
+        let div1 = document.getElementById("div1");
+        div1.attachShadow({ mode: 'open' })
+        // template 스펙을 복사해서 div1의 shadowRoot에 붙여넣기.
+        div1.shadowRoot.append(temp1.content.cloneNode(true));
+
+        const style = document.createElement('style');
+        style.textContent = `
+      :host {
+        background-color: lightgray; /* 호스트 요소 배경색 */
+      }
+      p {
+        color: purple;
+      }
+      :host(.highlight) {
+        background-color: lightyellow; /* 클래스가 'highlight'일 때 배경색 변경 */
+      }
+    `;
+        shadowRoot.appendChild(style);
+    </script>
+</body>
+
+</html>
