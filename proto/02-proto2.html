@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 12 장 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const obj1 = {
+            a1 : 123,
+            b1 : "abc",
+        }
+
+        obj1.__proto__.x1 = "안녕하세요";
+
+        console.dir(obj1);
+
+        // console.dir(obj1.__proto__.x1); 원래 정석
+        console.dir(obj1.x1); //__proto__ 생략 가능
+    </script>
+</body>
+</html>

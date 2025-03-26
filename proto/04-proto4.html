@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- 12 장 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const arr1 = [1, 2, 3, 4, 5];
+
+        arr1.__proto__.func1 = function () {
+            console.log("arr1에서 정의한 프로토타입 함수");
+        }
+
+        const arr2 = [9, 8, 7, 6, 5];
+
+        arr2.func1();
+
+        // array 객체에서 object로의 접근
+        // Array => Object
+        arr1.__proto__.__proto__.func2 = function () {
+            console.log("arr1의 object 선언!!")
+        }
+
+        arr1.func2();
+
+        // object 객체를 선언을 했을 때 func2 실행이 가능한가?
+
+        const obj1 = {
+            a1: 123,
+            b1: "abc"
+        }
+        obj1.func2();
+    </script>
+</body>
+
+</html>
